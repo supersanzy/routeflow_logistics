@@ -1,0 +1,23 @@
+routeflow_logistics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      threads: 16
+      account: '{{ env_var("SF_ACCOUNT") }}'
+      user: '{{ env_var("RF_USR") }}'
+      database: ROUTEFLOW_DEV_DB
+      warehouse: '{{ env_var("FF_WH") }}'
+      schema: ROUTEFLOW_DEV_SCHEMA
+      password: '{{ env_var("RF_USR_PASSWORD") }}'
+      role: '{{ env_var("DBT_D_ROLE") }}'
+    prod:
+      type: snowflake
+      threads: 16
+      account: '{{ env_var("SF_ACCOUNT") }}'
+      user: '{{ env_var("RF_USR") }}'
+      database: ROUTEFLOW_PROD_DB
+      warehouse: '{{ env_var("FF_WH") }}'
+      schema: ROUTEFLOW_PROD_SCHEMA
+      password: '{{ env_var("RF_USR_PASSWORD") }}'
+      role: '{{ env_var("DBT_D_ROLE") }}' 

@@ -1,0 +1,194 @@
+models:
+  - name: dim_carrier
+    columns:
+      - name: carrier_key
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+          - unique:
+              config:
+                severity: error
+
+      - name: carrier
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+
+  - name: dim_location
+    columns:
+      - name: location_key
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+          - unique:
+              config:
+                severity: error
+
+      - name: city
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+
+      - name: country
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+
+  - name: dim_status
+    columns:
+      - name: status_key
+        data_tests:
+          - unique:
+              config:
+                severity: error
+          - not_null
+
+      - name: status
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+
+  - name: dim_status_reason
+    columns:
+      - name: status_reason_key
+        data_tests: 
+          - not_null:
+              config:
+                severity: error
+          - unique:
+              config:
+                severity: error
+
+      - name: status_reason
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: dim_date
+    
+
+  - name: fact_shipments
+    columns:
+      - name: shipment_id
+        data_tests:
+            - not_null:
+                config:
+                  severity: error
+            - unique:
+                config:
+                  severity: error
+
+      - name: shipment_date
+        data_tests:
+            - not_null:
+                  config:
+                    severity: error
+
+      - name: delivery_date
+
+      - name: shipment_date_key
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: delivery_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+            
+      - name: status_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_status')
+                field: status_key
+              config:
+                severity: error
+
+      - name: status_reason_key
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+
+          - relationships:
+              arguments:
+                to: ref('dim_status_reason')
+                field: status_reason_key
+              config:
+                severity: error
+
+      - name: origin_key
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+                    
+          - relationships:
+              arguments:
+                to: ref('dim_location')
+                field: location_key
+              config:
+                severity: error
+
+      - name: destination_key
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+
+          - relationships:
+              arguments:
+                to: ref('dim_location')
+                field: location_key
+              config:
+                severity: error
+
+      - name: carrier_key
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+
+          - relationships:
+              arguments:
+                to: ref('dim_carrier')
+                field: carrier_key
+
+      - name: shipping_cost
+        data_tests:
+          - not_null:
+              config:
+                severity: error
+
+      - name: created_at
+
+      - name: updated_at
+            
+
+            
+                
+
+
+            
+             
+
+
+
+
+
+
